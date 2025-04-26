@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvi6bnunur22a"]
+
+[ext_resource type="PackedScene" uid="uid://q8udjgfugxdc" path="res://art/entities/enemy/saucer.glb" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://dc4qb0ee6vm43" path="res://scripts/enemy.gd" id="1_md0e3"]
+[ext_resource type="Script" uid="uid://bex8cmlh5qx50" path="res://scripts/destructable.gd" id="3_4ra3w"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_md0e3"]
+height = 29.916
+radius = 6.108
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_md0e3")
+
+[node name="Destructable3D" type="Area3D" parent="."]
+collision_layer = 2
+script = ExtResource("3_4ra3w")
+health = 1
+metadata/_custom_type_script = "uid://bex8cmlh5qx50"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Destructable3D"]
+shape = SubResource("CylinderShape3D_md0e3")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="saucer" parent="Pivot" instance=ExtResource("1_7p1mj")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_md0e3")
+
+[connection signal="destroyed" from="Destructable3D" to="." method="_on_destructable_3d_destroyed"]

@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://r8gytlj1j6j2"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_e5uuo"]
+plane = Plane(1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_nnsk1"]
+plane = Plane(-1, 0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5uuo"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_nnsk1"]
+material = SubResource("StandardMaterial3D_e5uuo")
+size = Vector3(1000, 1, 1000)
+
+[node name="World" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 5
+collision_mask = 3
+
+[node name="LeftWall" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -182, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_e5uuo")
+
+[node name="RightWall" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 189, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_nnsk1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_nnsk1")

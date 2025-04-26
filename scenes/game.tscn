@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0l7w4h7a60r2"]
+
+[ext_resource type="PackedScene" uid="uid://bqm5qk3ti7h12" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://r8gytlj1j6j2" path="res://scenes/world.tscn" id="1_yqjtg"]
+
+[node name="Game" type="Node"]
+
+[node name="World" parent="." instance=ExtResource("1_yqjtg")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0436193, 0.999048, 0, -0.999048, 0.0436193, 0, 170.405, -100)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+frustum_offset = Vector2(0, 0.185)
+near = 50.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 319.01, 0)
