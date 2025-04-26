@@ -1,33 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://r8gytlj1j6j2"]
+[gd_scene load_steps=6 format=3 uid="uid://r8gytlj1j6j2"]
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_e5uuo"]
-plane = Plane(1, 0, 0, 0)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_e5uuo"]
+normal = Vector2(1, 0)
+distance = 50.0
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_nnsk1"]
-plane = Plane(-1, 0, 0, 0)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nnsk1"]
+normal = Vector2(-1, 0)
+distance = -1230.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5uuo"]
-albedo_color = Color(0, 0, 0, 1)
-emission_enabled = true
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rwgxs"]
+distance = -720.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_nnsk1"]
-material = SubResource("StandardMaterial3D_e5uuo")
-size = Vector3(1000, 1, 1000)
+[sub_resource type="Gradient" id="Gradient_e5uuo"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
-[node name="World" type="Node3D"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nnsk1"]
+gradient = SubResource("Gradient_e5uuo")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-collision_layer = 5
+[node name="World" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
 collision_mask = 3
 
-[node name="LeftWall" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -182, 0, 0)
-shape = SubResource("WorldBoundaryShape3D_e5uuo")
+[node name="LeftWall" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_e5uuo")
 
-[node name="RightWall" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 189, 0, 0)
-shape = SubResource("WorldBoundaryShape3D_nnsk1")
+[node name="RightWall" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_nnsk1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("BoxMesh_nnsk1")
+[node name="Earth" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_rwgxs")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(643.5, 361)
+scale = Vector2(20.1094, 11.2813)
+texture = SubResource("GradientTexture2D_nnsk1")

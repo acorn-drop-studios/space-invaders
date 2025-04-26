@@ -7,16 +7,7 @@
 
 [node name="World" parent="." instance=ExtResource("1_yqjtg")]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(640, 650)
 
-[node name="CameraPivot" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0436193, 0.999048, 0, -0.999048, 0.0436193, 0, 170.405, -100)
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-frustum_offset = Vector2(0, 0.185)
-near = 50.0
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 319.01, 0)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

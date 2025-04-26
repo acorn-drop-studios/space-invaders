@@ -1,38 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4u5x6f8hgj4v"]
+[gd_scene load_steps=6 format=3 uid="uid://c4u5x6f8hgj4v"]
 
 [ext_resource type="Script" uid="uid://7igwdnc280df" path="res://scripts/projectile.gd" id="1_c8fcr"]
 [ext_resource type="Script" uid="uid://bex8cmlh5qx50" path="res://scripts/destructable.gd" id="2_q3m7n"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_6aapk"]
-radius = 0.65
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3m7n"]
+size = Vector2(4, 1.2e+06)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_c8fcr"]
-top_radius = 0.245
+[sub_resource type="Gradient" id="Gradient_q3m7n"]
+colors = PackedColorArray(0.0784314, 1, 1, 1, 1, 1, 1, 1)
 
-[node name="Projectile" type="Area3D"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_softn"]
+gradient = SubResource("Gradient_q3m7n")
+width = 1
+height = 11
+fill_to = Vector2(0, 1)
+
+[node name="Projectile" type="Area2D"]
 collision_mask = 3
 script = ExtResource("1_c8fcr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-shape = SubResource("CylinderShape3D_6aapk")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(1, 1e-05)
+shape = SubResource("RectangleShape2D_q3m7n")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("CylinderMesh_c8fcr")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(1, 1.09091)
+texture = SubResource("GradientTexture2D_softn")
 
-[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="."]
+[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.98023e-08, -6)
+scale = Vector2(0.2, 0.6)
 
-[node name="Destructable3D" type="Area3D" parent="."]
+[node name="Destructable2D" type="Area2D" parent="."]
 collision_mask = 2
+gravity_point_center = Vector2(0, -1)
+gravity_direction = Vector2(0, -1)
+gravity = 9.8
+angular_damp = 0.1
 script = ExtResource("2_q3m7n")
 health = 1
 metadata/_custom_type_script = "uid://bex8cmlh5qx50"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Destructable3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-shape = SubResource("CylinderShape3D_6aapk")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Destructable2D"]
+position = Vector2(0, -6)
+scale = Vector2(1, 1e-05)
+shape = SubResource("RectangleShape2D_q3m7n")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenEnabler3D" to="." method="_on_visible_on_screen_enabler_3d_screen_exited"]
-[connection signal="destroyed" from="Destructable3D" to="." method="_on_destructable_3d_destroyed"]
+[connection signal="destroyed" from="Destructable2D" to="." method="_on_destructable_3d_destroyed"]

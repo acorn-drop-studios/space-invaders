@@ -1,6 +1,7 @@
-extends Area3D
+extends Area2D
+class_name Projectile
 
-@export var direction: Vector3
+@export var direction: Vector2
 @export var speed: int
 
 signal on_projectile_destroyed
@@ -19,5 +20,5 @@ func hit():
 func _on_visible_on_screen_enabler_3d_screen_exited():
 	hit()
 
-func _on_destructable_3d_destroyed():
+func _on_destructable_3d_destroyed(area):
 	hit() # Replace with function body.
